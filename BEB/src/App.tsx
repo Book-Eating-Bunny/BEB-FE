@@ -10,8 +10,7 @@ function App() {
     const getServerData = () => {
       axios
         .get('/api/demo')
-        .then((res: unknown) => {
-          console.log(res);
+        .then((res: any) => {
           setServerData(res?.data);
         })
         .catch((err) => console.log(err));
