@@ -1,0 +1,21 @@
+$primary-color: #feede7;
+
+body {
+  background-color: $primary-color;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  width: 100%;
+  .logobox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .caracter {
+      width: 300px;
+    }
+    .textlogo {
+      width: 500px;
+    }
+  }
+}
