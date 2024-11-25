@@ -1,5 +1,5 @@
 import '../../styles/Auth/SubmitButton.scss';
-import Button from '../Util/Button';
+import Button from '../utils/Button';
 import PropTypes from 'prop-types';
 
 function SubmitButton({onLogin}) {
