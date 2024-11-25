@@ -1,16 +1,22 @@
 import './styles.scss';
+import React, {useState} from 'react';
+import LoginPage from './pages/LoginPage';
+import MainPage from './pages/MainPage';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true); // 로그인 상태 변경
+  };
   return (
-    <>
-      <div>
-        <h1>BEB</h1>
-        <div className="logobox">
-          <img src="public/logo/3d토끼.png" className="caracter" />
-          <img src="public/logo/fulltext.png" className="textlogo" />
-        </div>
-      </div>
-    </>
+    <div>
+      {isLoggedIn ? (
+        <MainPage /> // 로그인 상태면 MainPage 렌더링
+      ) : (
+        <LoginPage onLogin={handleLogin} /> // LoginPage에 onLogin 전달
+      )}
+    </div>
   );
 }
 

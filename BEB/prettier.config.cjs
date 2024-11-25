@@ -4,4 +4,5 @@ module.exports = {
   trailingComma: 'none', // 마지막 쉼표 제거
   semi: true, // 세미콜론 사용
   tabWidth: 2, // 들여쓰기 2칸
+  endOfLine: 'auto'
 };

@@ -1,21 +1,32 @@
 $primary-color: #feede7;
 
 body {
-  background-color: $primary-color;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  width: 100%;
-  .logobox {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .caracter {
-      width: 300px;
-    }
-    .textlogo {
-      width: 500px;
-    }
-  }
+  display: flex;
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  height: 100%; /* 화면 전체 높이 */
+  margin: 0; /* 기본 여백 제거 */
+  background-color: #feede7; /* 배경 색상 유지 */
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  width: 90vw;
+  height: 90vh;
+  background: linear-gradient(135deg, #ffffff 100%, #f2f6ff 52%, #aebedf 0%);
+  border-radius: 50px;
+  box-shadow:
+    inset -10px -10px 20px #fedee7,
+    inset 0px 15px 30px rgba(255, 255, 255, 0.5),
+    0px 30px 60px rgba(198, 161, 148, 1);
 }

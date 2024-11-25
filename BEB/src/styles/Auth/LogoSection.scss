@@ -1,0 +1,12 @@
+.logosection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .caracter {
+    width: 20%;
+  }
+
+  .textlogo {
+    width: 60%;
+  }
+}

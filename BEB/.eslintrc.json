@@ -23,7 +23,8 @@
     "react/jsx-uses-vars": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "linebreak-style": ["error", "windows"] // CRLF 스타일 강제
   },
   "settings": {
     "react": {
