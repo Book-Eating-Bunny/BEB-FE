@@ -6,4 +6,12 @@ import eslint from 'vite-plugin-eslint';
 export default defineConfig({
   plugins: [react(), eslint()],
   base: '/', // 루트 경로 (기본값)
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://34.134.220.88',
+        changeOrigin: true
+      }
+    }
+  }
 });

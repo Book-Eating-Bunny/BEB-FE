@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import LogoSection from '../components/Auth/LogoSection';
 import InputField from '../components/Auth/InputField';
 import SubmitButton from '../components/Auth/SubmitButton';
+import ApiTest from '../components/test/apiTest';
 
 function LoginPage({onLogin}) {
   return (
@@ -9,6 +10,7 @@ function LoginPage({onLogin}) {
       <LogoSection />
       <InputField />
       <SubmitButton onLogin={onLogin} />
+      <ApiTest />
     </div>
   );
 }
