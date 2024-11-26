@@ -1,11 +1,33 @@
 $primary-color: #feede7;
 
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --primary-background: linear-gradient(
+    135deg,
+    #ffffff 100%,
+    #f2f6ff 52%,
+    #aebedf 0%
+  );
+  --primary-box-shadow: inset -10px -10px 20px #fedee7,
+    inset 0px 15px 30px rgba(255, 255, 255, 0.5),
+    0px 30px 60px rgba(198, 161, 148, 1);
+  --main-letter-spacing: -0.05rem;
+}
+
 body {
   display: flex;
+  font-family: 'Pretendard-Regular', sans-serif;
   justify-content: center; /* 수평 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 */
-  height: 100%; /* 화면 전체 높이 */
-  margin: 0; /* 기본 여백 제거 */
+  margin: 0; /* 기본 margin 제거 */
+  height: 100vh; /* 화면 전체 높이 */
   background-color: #feede7; /* 배경 색상 유지 */
 }
 
@@ -13,6 +35,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%; /* 부모(body)의 전체 높이 사용 */
 }
 
 .main-box {
@@ -21,12 +45,10 @@ body {
   justify-content: center;
   align-items: center;
   gap: 30px;
-  width: 90vw;
-  height: 90vh;
-  background: linear-gradient(135deg, #ffffff 100%, #f2f6ff 52%, #aebedf 0%);
+  width: 95%;
+  max-width: 1200px;
+  padding: 40px; /* 여백을 내부에서 설정 */
+  background: var(--primary-background); /* CSS 변수 사용 */
   border-radius: 50px;
-  box-shadow:
-    inset -10px -10px 20px #fedee7,
-    inset 0px 15px 30px rgba(255, 255, 255, 0.5),
-    0px 30px 60px rgba(198, 161, 148, 1);
+  box-shadow: var(--primary-box-shadow); /* CSS 변수 사용 */
 }

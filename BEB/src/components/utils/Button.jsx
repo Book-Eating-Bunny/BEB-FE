@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../styles/Util/Button.scss'; // 스타일 파일 분리
+import '../../styles/utils/Button.scss'; // 스타일 파일 분리
 
 const Button = ({label, variant = 'default', onClick}) => {
   return (

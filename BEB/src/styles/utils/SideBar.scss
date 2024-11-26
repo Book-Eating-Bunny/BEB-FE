@@ -1,0 +1,58 @@
+.side {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  .logo {
+    width: 60%;
+  }
+}
+
+.side-bar {
+  padding: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--primary-background); /* CSS 변수 사용 */
+  border-radius: 30px;
+  box-shadow: var(--primary-box-shadow); /* CSS 변수 사용 */
+  height: 100%;
+  .raddit {
+    width: 80%;
+    transform: scaleX(-1);
+  }
+  .info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+
+    .speech-bubble {
+      background-color: #fde4d0;
+      color: #555;
+      font-size: 14px;
+      padding: 15px 20px;
+      border-radius: 25px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 200px;
+      margin-bottom: 20px;
+      p {
+        letter-spacing: var(--main-letter-spacing);
+      }
+    }
+    &:after {
+      border-top: 10px solid #fde4d0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 0px solid transparent;
+      content: '';
+      position: absolute;
+      bottom: 250px;
+    }
+  }
+}
