@@ -1,11 +1,27 @@
-$primary-color: #feede7;
-
 @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
     format('woff');
   font-weight: 400;
   font-style: normal;
+}
+$primary-color: #feede7;
+$black: #333333;
+
+@mixin ellipsis($line: 1) {
+  @if ($line == 1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    word-wrap: break-word; // 공백 없을때 글자 짤림 방지
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+  }
 }
 
 :root {
@@ -15,9 +31,14 @@ $primary-color: #feede7;
     #f2f6ff 52%,
     #aebedf 0%
   );
+  --sub-background: linear-gradient(135deg, #feece6 0%, #f9c8b7 80%);
+  --review-background: linear-gradient(135def, #fff 0%, #f2f6ff 52%);
   --primary-box-shadow: inset -10px -10px 20px #fedee7,
     inset 0px 15px 30px rgba(255, 255, 255, 0.5),
     0px 30px 60px rgba(198, 161, 148, 1);
+  --sub-box-shadow: inset 10px 10px 20px #feede7, 0 4px 6px rgba(0, 0, 0, 0.1);
+  --review-box-shadow: inset -10px -10px 20px #f3ebed, 0px 10px 20px #c6a194,
+    inset 0px 15px 30px rgba(255, 255, 255, 0.5);
   --main-letter-spacing: -0.05rem;
 }
 
@@ -51,4 +72,10 @@ body {
   background: var(--primary-background); /* CSS 변수 사용 */
   border-radius: 50px;
   box-shadow: var(--primary-box-shadow); /* CSS 변수 사용 */
+}
+
+.book-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
 }

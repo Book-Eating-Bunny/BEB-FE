@@ -1,0 +1,44 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-background);
+  border-radius: 30px; /* 둥근 모서리 */
+  box-shadow: var(--primary-box-shadow);
+  height: 50px;
+  padding: 0 20px;
+}
+
+.search-bar input {
+  flex: 1;
+  margin: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #333;
+  font-family: 'Pretendard-Regular', sans-serif; /* 기본 폰트 */
+}
+
+.search-bar input::placeholder {
+  color: #aaa; /* 플레이스홀더 색상 */
+}
+
+.search-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+  margin-left: 10px;
+  padding: 0;
+}
+
+.search-bar button:hover {
+  color: #555; /* 버튼 호버 효과 */
+}
+
+.search-bar button img {
+  width: 30px; /* 아이콘 크기 */
+  height: 30px; /* 아이콘 크기 */
+}

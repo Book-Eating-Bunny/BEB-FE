@@ -1,0 +1,80 @@
+@use '../../styles' as *;
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--review-background);
+  border-radius: 20px;
+  box-shadow: var(--review-box-shadow);
+  padding: 20px;
+  width: calc(80% / 3 - 10px);
+  height: 100%;
+  max-width: 200px;
+  max-height: 235px;
+  text-align: center;
+  gap: 10px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.review-card-image {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.review-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.review-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.review-card-review {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  padding: 15px;
+  border-radius: 15px;
+  line-height: 1.4; /* 줄 간격 */
+  box-shadow: var(--review-box-shadow);
+  background-color: var(--review-background);
+  letter-spacing: var(--main-letter-spacing);
+  .text-box {
+    @include ellipsis(3);
+  }
+}
+
+.review-card-rating {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.star {
+  font-size: 20px; /* 별 크기 */
+  color: #fbc02d; /* 별점 색상 */
+}
+
+.full-star {
+  color: #fbc02d; /* 채워진 별 */
+}
+
+.empty-star {
+  color: #ddd; /* 빈 별 */
+}

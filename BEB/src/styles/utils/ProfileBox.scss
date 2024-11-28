@@ -3,13 +3,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  background: linear-gradient(135deg, #feece6 0%, #f9c8b7 80%);
+  background: var(--sub-background);
   padding: 10px;
   border-radius: 20px;
   gap: 10px;
-  box-shadow:
-    inset 10px 10px 20px #feede7,
-    0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--sub-box-shadow);
 }
 
 .user-profile {

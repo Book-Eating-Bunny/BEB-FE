@@ -1,0 +1,54 @@
+.book {
+  position: relative;
+  width: 60px; /* 책의 폭 */
+  height: 90px; /* 책의 높이 */
+  transform-style: preserve-3d; /* 3D 공간에서 변환 유지 */
+  transform: rotateY(0deg); /* 기본 상태 정면 */
+  transition: transform 0.5s ease-in-out;
+  cursor: pointer;
+
+  /* 책 표지 */
+  .book-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://example.com/book-cover.jpg'); /* 책 표지 이미지 */
+    background-size: cover;
+    background-position: center;
+    // border-radius: 5px; /* 책의 둥근 모서리 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    transform: translateZ(20px); /* 표지가 앞으로 나와 입체감 부여 */
+  }
+
+  /* 책 옆면 */
+  .book-side {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px; /* 책 두께 */
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      #f7f7f8,
+      #ffffff
+    ); /* 옆면 색상 그라데이션 */
+    // border-radius: 0 5px 5px 0; /* 둥근 모서리 */
+    transform: rotateY(90deg) translateZ(-20px); /* 옆면을 책 뒤쪽으로 이동 */
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1); /* 옆면의 깊이감 */
+  }
+
+  /* 책 뒤표지 */
+  .book-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #e5e7eb; /* 뒤표지 색상 */
+    border-radius: 5px; /* 둥근 모서리 */
+    transform: translateZ(-20px); /* 뒤로 이동 */
+  }
+
+  /* 호버 효과 */
+  &:hover {
+    transform: rotateY(-15deg); /* 책이 살짝 기울어지는 효과 */
+  }
+}
