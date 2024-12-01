@@ -1,30 +1,55 @@
 import React from 'react';
+import {useAtomValue} from 'jotai';
+import {reviewsAtom} from '../../state/reviewState';
 import PropTypes from 'prop-types';
 import Book from './Book';
 import BookInfo from './BookInfo';
 import '../../styles/utils/ReviewCard.scss';
 
-const ReviewCard = ({title, author, date, review, image, rating}) => {
+const ReviewCard = ({reviewId}) => {
+  const reviews = useAtomValue(reviewsAtom); // 전역 상태에서 리뷰 데이터 가져오기
+  const review = reviews.find((r) => r.reviewId === reviewId);
+
+  if (!review) return null; // reviewId에 해당하는 데이터가 없으면 렌더링하지 않음
+
+  // 기본값 설정
+  const {
+    book: {
+      coverImg = '/default-cover.jpg', // 기본 이미지
+      coverImageUrl = '/default-cover.jpg',
+      title = '제목 없음', // 기본 제목
+      author = '저자 미상' // 기본 저자
+    } = {},
+    contentSnippet = '리뷰 내용 없음', // 기본 리뷰 내용
+    createdAt = new Date().toISOString(), // 기본 날짜
+    rating = 0 // 기본 평점
+  } = review;
+
   return (
     <div className="review-card">
       <div className="book-box">
-        <Book coverImage={image} title="불편한 편의점" author="김호연" />
-        <BookInfo title={title} author={author} date={date} rating={rating} />
+        <Book
+          coverImage={coverImg || coverImageUrl} // 둘 중 하나 사용
+          title={title}
+          author={author}
+        />
+        <BookInfo
+          title={title}
+          author={author}
+          date={new Date(createdAt).toLocaleDateString()} // 날짜 포맷팅
+          rating={rating}
+        />
       </div>
       <div className="review-card-review">
-        <div className="text-box">{review}</div>
+        <div className="text-box">{contentSnippet}</div>
       </div>
     </div>
   );
 };
 
+// PropTypes 추가
 ReviewCard.propTypes = {
-  title: PropTypes.string.isRequired, // 제목은 필수(string)
-  author: PropTypes.string.isRequired, // 저자는 필수(string)
-  date: PropTypes.string.isRequired, // 날짜는 필수(string)
-  review: PropTypes.string.isRequired, // 리뷰는 필수(string)
-  image: PropTypes.string.isRequired, // 이미지 경로는 필수(string)
-  rating: PropTypes.number.isRequired // 별점은 필수(number, 0~5)
+  reviewId: PropTypes.number.isRequired // reviewId는 숫자이며 필수
 };
 
 export default ReviewCard;
