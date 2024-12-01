@@ -1,15 +1,22 @@
 import PropTypes from 'prop-types';
+import {useSetAtom} from 'jotai';
+import {isLoggedInAtom} from '../state/authState';
 import LogoSection from '../components/Auth/LogoSection';
 import InputField from '../components/Auth/InputField';
 import SubmitButton from '../components/Auth/SubmitButton';
 import ApiTest from '../components/test/apiTest';
 
-function LoginPage({onLogin}) {
+function LoginPage() {
+  const setIsLoggedIn = useSetAtom(isLoggedInAtom); // Jotai 상태 업데이트 함수
+
+  const handleLogin = () => {
+    setIsLoggedIn(true); // 로그인 상태를 true로 설정
+  };
   return (
     <div className="main-box">
       <LogoSection />
       <InputField />
-      <SubmitButton onLogin={onLogin} />
+      <SubmitButton onLogin={handleLogin} />
       <ApiTest />
     </div>
   );
