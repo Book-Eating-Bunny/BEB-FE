@@ -13,7 +13,15 @@ const Button = ({label, variant = 'default', onClick}) => {
 // PropTypes로 props 검증 추가
 Button.propTypes = {
   label: PropTypes.string.isRequired, // label은 문자열이고 필수
-  variant: PropTypes.oneOf(['default', 'primary']), // variant는 특정 문자열만 허용
+  variant: PropTypes.oneOf([
+    'default',
+    'primary',
+    'review-edit',
+    'review-create',
+    'delete',
+    'read',
+    'wishlist'
+  ]), // 추가된 variant
   onClick: PropTypes.func // onClick은 함수
 };
 

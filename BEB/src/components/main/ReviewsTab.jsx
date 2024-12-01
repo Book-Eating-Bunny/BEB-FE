@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useAtom} from 'jotai';
 import {fetchReviews} from '../../api/fetchReviews';
 import {reviewsAtom} from '../../state/reviewState';
-import ReviewCard from '../utils/ReviewCard';
+import Card from '../utils/Card';
 import '../../styles/main/ReviewsTab.scss';
 
 const ReviewsTab = () => {
@@ -20,7 +20,7 @@ const ReviewsTab = () => {
   return (
     <div className="review-list">
       {reviews.map((review) => (
-        <ReviewCard key={review.reviewId} reviewId={review.reviewId} />
+        <Card key={review.reviewId} reviewId={review.reviewId} />
       ))}
     </div>
   );

@@ -4,18 +4,19 @@ export const fetchReviews = async () => {
       {
         reviewId: 123,
         book: {
-          coverImg: '/public/book.jpg',
+          coverImg: '/book.jpg',
           title: 'Book Title',
           author: 'Author Name'
         },
         rating: 4.0,
-        contentSnippet: 'This book is amazing and...',
+        contentSnippet:
+          'This book is amazing and...This book is amazing and...This book is amazing and...This book is amazing and...This book is amazing and...',
         createdAt: '2023-12-01T10:30:00Z'
       },
       {
         reviewId: 124,
         book: {
-          coverImageUrl: '/public/book.jpg',
+          coverImg: '/book.jpg',
           title: 'Another Book',
           author: 'Another Author'
         },

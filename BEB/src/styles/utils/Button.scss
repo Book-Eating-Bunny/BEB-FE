@@ -39,6 +39,66 @@
     }
   }
 
+  /* 리뷰 수정하기 (파란 버튼) */
+  &.review-edit {
+    background-color: #a2caff; /* 파란색 */
+    color: #000;
+
+    &:hover {
+      box-shadow:
+        inset 8px 8px 16px rgba(0, 0, 0, 0.2),
+        inset -8px -8px 16px rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  /* 리뷰 작성하기 (노란 버튼) */
+  &.review-create {
+    background-color: #fff9c4; /* 노란색 */
+    color: #000;
+
+    &:hover {
+      box-shadow:
+        inset 8px 8px 16px rgba(0, 0, 0, 0.2),
+        inset -8px -8px 16px rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  /* 삭제하기 (빨간 버튼) */
+  &.delete {
+    background-color: #f8bbbb; /* 빨간색 */
+    color: #000;
+
+    &:hover {
+      box-shadow:
+        inset 8px 8px 16px rgba(0, 0, 0, 0.2),
+        inset -8px -8px 16px rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  /* 읽었어요 (연두색 버튼) */
+  &.read {
+    background-color: #c8f8bb; /* 연두색 */
+    color: #000;
+
+    &:hover {
+      box-shadow:
+        inset 8px 8px 16px rgba(0, 0, 0, 0.2),
+        inset -8px -8px 16px rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  /* 찜하기 (분홍색 버튼) */
+  &.wishlist {
+    background-color: #ffd6f8; /* 분홍색 */
+    color: #000;
+
+    &:hover {
+      box-shadow:
+        inset 8px 8px 16px rgba(0, 0, 0, 0.2),
+        inset -8px -8px 16px rgba(255, 255, 255, 0.7);
+    }
+  }
+
   &:active {
     transform: scale(0.95);
   }
