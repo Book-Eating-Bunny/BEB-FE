@@ -1,60 +1,26 @@
-import React from 'react';
-import ReviewCard from '../utils/ReviewCard';
+import React, {useEffect} from 'react';
+import {useAtom} from 'jotai';
+import {fetchReviews} from '../../api/fetchReviews';
+import {reviewsAtom} from '../../state/reviewState';
+import Card from '../utils/Card';
 import '../../styles/main/ReviewsTab.scss';
 
-const reviews = [
-  {
-    title: '불편한 편의점',
-    author: '김호연',
-    date: '2023년 11월 25일',
-    review:
-      '이 책은 편의점의 이야기를 중심으로 독자들에게 따뜻한 위로를 전합니다.',
-    image: '/book.jpg',
-    rating: 4
-  },
-  {
-    title: '불편한 편의점',
-    author: '김호연',
-    date: '2023년 11월 25일',
-    review:
-      '이 책은 편의점의 이야기를 중심으로 독자들에게 따뜻한 위로를 전합니다. 이 책은 편의점의 이야기를 중심으로 독자들에게 따뜻한 위로를 전합니다.이 책은 편의점의 이야기를 중심으로 독자들에게 따뜻한 위로를 전합니다.에게 따뜻한 위로를 전합니다.에게 따뜻한 위로를 전합니다.에게 따뜻한 위로를 전합니다.',
-    image: '/book.jpg',
-    rating: 4
-  },
-  {
-    title: '불편한 편의점',
-    author: '김호연',
-    date: '2023년 11월 25일',
-    review:
-      '이 책은 편의점의 이야기를 중심으로 독자들에게 따뜻한 위로를 전합니다.',
-    image: '/book.jpg',
-    rating: 4
-  },
-  {
-    title: '불편한 편의점',
-    author: '김호연',
-    date: '2023년 11월 25일',
-    review:
-      '이 책은 편의점의 이야기를 중심으로 독자들에게 따뜻한 위로를 전합니다.',
-    image: '/book.jpg',
-    rating: 4
-  },
-  {
-    title: '불편한 편의점',
-    author: '김호연',
-    date: '2023년 11월 25일',
-    review:
-      '이 책은 편의점의 이야기를 중심으로 독자들에게 따뜻한 위로를 전합니다.',
-    image: '/book.jpg',
-    rating: 5
-  }
-];
-
 const ReviewsTab = () => {
+  const [reviews, setReviews] = useAtom(reviewsAtom);
+
+  useEffect(() => {
+    const loadReviews = async () => {
+      const data = await fetchReviews();
+      setReviews(data.data); // 리뷰 데이터 상태 업데이트
+    };
+
+    loadReviews();
+  }, [setReviews]);
+
   return (
     <div className="review-list">
-      {reviews.map((review, index) => (
-        <ReviewCard key={index} {...review} />
+      {reviews.map((review) => (
+        <Card key={review.reviewId} reviewId={review.reviewId} />
       ))}
     </div>
   );
