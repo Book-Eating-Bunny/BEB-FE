@@ -4,7 +4,7 @@ import {isLoggedInAtom} from '../state/authState';
 import LogoSection from '../components/Auth/LogoSection';
 import InputField from '../components/Auth/InputField';
 import SubmitButton from '../components/Auth/SubmitButton';
-import ApiTest from '../components/test/apiTest';
+import ApiTest from '../components/test/ApiTest';
 
 function LoginPage() {
   const setIsLoggedIn = useSetAtom(isLoggedInAtom); // Jotai 상태 업데이트 함수
