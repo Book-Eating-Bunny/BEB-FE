@@ -4,7 +4,7 @@ import eslint from 'vite-plugin-eslint';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), eslint()],
+  plugins: [react(), process.env.NODE_ENV === 'production' ? null : eslint()],
   base: '/', // 루트 경로 (기본값)
   server: {
     proxy: {
