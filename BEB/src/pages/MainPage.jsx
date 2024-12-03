@@ -1,6 +1,6 @@
 import React from 'react';
 import SideBar from '../components/utils/SideBar';
-import ContentsBox from '../components/Main/ContentsBox';
+import ContentsBox from '../components/main/ContentsBox';
 import '../styles/Main/MainPage.scss';
 
 const MainPage = () => {
