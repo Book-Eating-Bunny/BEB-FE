@@ -3,7 +3,7 @@ import {useAtom} from 'jotai';
 import {fetchReadBooks} from '../../api/fetchReadBooks';
 import {readBooksAtom} from '../../state/readBooksState';
 import Card from '../utils/Card';
-import '../../styles/main/ReviewsTab.scss';
+import '../../styles/Main/ReviewsTab.scss';
 
 const ReadBooksTab = () => {
   const [reads, setReads] = useAtom(readBooksAtom);

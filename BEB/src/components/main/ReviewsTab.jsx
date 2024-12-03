@@ -3,7 +3,7 @@ import {useAtom} from 'jotai';
 import {fetchReviews} from '../../api/fetchReviews';
 import {reviewsAtom} from '../../state/reviewState';
 import Card from '../utils/Card';
-import '../../styles/main/ReviewsTab.scss';
+import '../../styles/Main/ReviewsTab.scss';
 
 const ReviewsTab = () => {
   const [reviews, setReviews] = useAtom(reviewsAtom);
