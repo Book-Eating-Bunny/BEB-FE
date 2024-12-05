@@ -7,9 +7,7 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <SideBar />
-      {/* <div className="main-box"> */}
       <ContentsBox />
-      {/* </div> */}
     </div>
   );
 };

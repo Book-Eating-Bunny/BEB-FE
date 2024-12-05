@@ -8,3 +8,13 @@ input {
   min-width: 500px;
   margin-bottom: 20px;
 }
+
+input[type='first-email'],
+input[type='first-password'] {
+  border-radius: 40px;
+  min-width: 500px;
+}
+
+input[type='age'] {
+  width: 100px;
+}
