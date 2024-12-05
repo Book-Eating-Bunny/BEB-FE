@@ -1,10 +1,17 @@
-@font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-    format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: 'Pretendard-Regular';
+//   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+//     format('woff');
+//   font-weight: 400;
+//   font-style: normal;
+// }
+
+$font-family: 'Pretendard', sans-serif;
+$font-weights: (
+  regular: 400,
+  bold: 700,
+  light: 300
+);
 $primary-color: #feede7;
 $black: #333333;
 
@@ -26,10 +33,10 @@ $black: #333333;
 
 :root {
   --primary-background: linear-gradient(
-    135deg,
-    #ffffff 100%,
-    #f2f6ff 52%,
-    #aebedf 0%
+    150deg,
+    #ffffff 0%,
+    rgba(242, 246, 255, 0.52) 48%,
+    rgba(174, 189, 223, 0) 100%
   );
   --sub-background: linear-gradient(135deg, #feece6 0%, #f9c8b7 80%);
   --review-background: linear-gradient(135def, #fff 0%, #f2f6ff 52%);
@@ -44,12 +51,13 @@ $black: #333333;
 
 body {
   display: flex;
-  font-family: 'Pretendard-Regular', sans-serif;
+  font-family: $font-family;
   justify-content: center; /* 수평 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 */
   margin: 0; /* 기본 margin 제거 */
-  height: 100vh; /* 화면 전체 높이 */
+  height: auto; /* 화면 전체 높이 */
   background-color: #feede7; /* 배경 색상 유지 */
+  overflow-x: hidden;
 }
 
 #root {
@@ -63,15 +71,20 @@ body {
 .main-box {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* 자식 요소를 위에서 아래로 배치 */
   align-items: center;
   gap: 30px;
-  width: 95%;
+  width: 95vw;
   max-width: 1200px;
-  padding: 40px; /* 여백을 내부에서 설정 */
-  background: var(--primary-background); /* CSS 변수 사용 */
+  padding: 40px;
+  margin: 40px;
+  background: var(--primary-background);
   border-radius: 50px;
-  box-shadow: var(--primary-box-shadow); /* CSS 변수 사용 */
+  box-shadow: var(--primary-box-shadow);
+
+  /* 자식 콘텐츠에 맞게 높이 조정 */
+  height: auto;
+  min-height: 80dvh; /* 최소 높이 설정 */
 }
 
 .book-box {

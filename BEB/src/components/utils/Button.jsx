@@ -20,7 +20,8 @@ Button.propTypes = {
     'review-create',
     'delete',
     'read',
-    'wishlist'
+    'wishlist',
+    'submit'
   ]), // 추가된 variant
   onClick: PropTypes.func // onClick은 함수
 };
