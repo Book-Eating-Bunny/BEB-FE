@@ -1,0 +1,149 @@
+@import '../../styles.scss';
+
+.back {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 70px;
+  left: 120px;
+}
+.signup-title {
+  color: $black;
+  font-size: 2rem;
+  font-weight: 100;
+  margin: 0;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  color: $black;
+  margin-bottom: 10px;
+}
+
+label.custom-checkbox {
+  margin-bottom: 0; /* label 요소의 하단 여백 제거 */
+}
+
+input {
+  border: none;
+  border-radius: 12px;
+  min-width: 0;
+  height: 30px;
+  width: 90%;
+  box-shadow: 0px 10px 10px 0px rgba(198, 161, 148, 0.5);
+}
+
+input[type='file'] {
+  width: 70%;
+}
+
+input[type='age'] {
+  width: 100px;
+}
+
+.agender-box {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.gender-container {
+  display: flex;
+  height: 30px;
+  gap: 16px;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  justify-content: center;
+  box-shadow: 0px 10px 10px 0px rgba(198, 161, 148, 0.5);
+
+  label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    flex-direction: row;
+    text-wrap: nowrap;
+
+    input[type='checkbox'] {
+      margin-right: 4px;
+    }
+  }
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.total-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .right-box {
+    width: 50%;
+  }
+  .left-box {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .image-preview {
+      img {
+        width: 200px;
+        height: 200px;
+        border: 1px solid black;
+        border-radius: 40px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+.submit {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  .gender-box {
+    color: $black;
+    .text {
+      margin-bottom: 10px;
+    }
+  }
+  button {
+    width: 120px;
+    height: 100%;
+  }
+}
+
+.custom-checkbox {
+  display: flex; /* 체크박스와 텍스트를 정렬하기 위해 flex 사용 */
+  align-items: center; /* 세로 방향 중앙 정렬 */
+  cursor: pointer;
+  font-size: 16px;
+
+  input[type='checkbox'] {
+    position: absolute; /* 기본 체크박스 숨김 */
+    opacity: 0;
+  }
+
+  .checkbox-icon {
+    width: 20px; /* 아이콘 크기 */
+    height: 20px;
+    display: inline-block;
+    background-size: cover; /* 아이콘 크기 조정 */
+    background-position: center;
+    margin-right: 8px; /* 아이콘과 텍스트 사이 간격 */
+    background-image: url('/icons/boxicon.png'); /* 기본 상태 네모박스 아이콘 */
+  }
+
+  input[type='checkbox']:checked + .checkbox-icon {
+    background-image: url('/icons/checkboxicon.png'); /* 체크된 상태 아이콘 */
+  }
+}
