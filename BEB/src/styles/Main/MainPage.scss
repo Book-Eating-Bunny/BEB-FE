@@ -1,9 +1,0 @@
-.main-page {
-  width: calc(100% - 100px);
-  height: calc(100vh - 100px);
-  display: grid;
-  grid-template-columns: 2fr 8fr; // 3:7 비율로 열 설정
-  gap: 100px; // 열 간 간격 (옵션)
-  margin: auto; /* 가운데 정렬 */
-  box-sizing: border-box; /* 테두리와 패딩을 포함 */
-}
