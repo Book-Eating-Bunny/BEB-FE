@@ -29,12 +29,7 @@
     display: flex;
 
     .star {
-      font-size: 16px;
-      color: #ccc;
-
-      &.filled {
-        color: #ffc107; /* 채워진 별의 색상 */
-      }
+      width: 20px;
     }
   }
 }
