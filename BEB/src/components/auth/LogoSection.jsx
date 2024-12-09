@@ -1,4 +1,4 @@
-import '../../styles/Auth/LogoSection.scss';
+import '../../styles/auth/LogoSection.scss';
 
 function LogoSection() {
   return (
