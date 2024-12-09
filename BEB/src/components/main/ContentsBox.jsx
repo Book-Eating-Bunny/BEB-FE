@@ -3,7 +3,7 @@ import SearchBar from '../utils/SearchBar';
 import ReadBooksTab from './ReadBooksTab';
 import ReviewsTab from './ReviewsTab';
 import WishlistTab from './WishlistTab';
-import '../../styles/Main/ContentsBox.scss';
+import '../../styles/main/ContentsBox.scss';
 
 const ContentsBox = () => {
   // 탭 정보 배열

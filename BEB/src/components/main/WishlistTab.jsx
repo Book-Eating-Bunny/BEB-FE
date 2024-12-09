@@ -3,7 +3,7 @@ import {useAtom} from 'jotai';
 import {fetchWishlist} from '../../api/fetchWishlist';
 import {wishListAtom} from '../../state/wishListState';
 import Card from '../utils/Card';
-import '../../styles/Main/ReviewsTab.scss';
+import '../../styles/main/ReviewsTab.scss';
 
 const WishlistTab = () => {
   const [wishList, setWishList] = useAtom(wishListAtom);
