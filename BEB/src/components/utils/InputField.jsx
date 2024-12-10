@@ -11,7 +11,8 @@ function InputField({label, type, placeholder, value, onChange, errorMessage}) {
 
     // 검증 로직: 타입이 email인 경우 기본 HTML5 이메일 검증 사용
     if (type === 'email' || type === 'first-email') {
-      setIsValid(e.target.validity.valid); // HTML5 validity API 활용
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      setIsValid(emailRegex.test(newValue));
       // 검증 로직: 타입이 password인 경우 8자 이상
     } else if (type === 'password' || type === 'first-password') {
       setIsValid(newValue.length >= 8);
