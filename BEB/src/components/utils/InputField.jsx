@@ -21,6 +21,9 @@ function InputField({label, type, placeholder, value, onChange, errorMessage}) {
       setIsValid(nicknameRegex.test(newValue)); // 닉네임 조건 검증
     } else if (type === 'age') {
       const ageRegex = /^[0-9]*$/; // 숫자만 허용
+      if (!ageRegex.test(newValue)) return; // 숫자가 아니면 무시
+      const ageValue = parseInt(newValue, 10); // 숫자로 변환
+      setIsValid(ageValue >= 1 && ageValue <= 100); // 1~100 범위 확인
       if (!ageRegex.test(newValue)) return;
     } else {
       setIsValid(newValue.trim() !== ''); // 빈 값 검증 (기본 로직)

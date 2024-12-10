@@ -273,7 +273,9 @@ function SignupPage() {
                   setIsNicknameValid(false); // 닉네임 변경 시 상태 초기화
                 }}
                 errorMessage={
-                  !isNicknameValid ? '이미 사용 중인 닉네임입니다.' : ''
+                  !isNicknameValid
+                    ? '닉네임은 8자 이하로 한글, 숫자, 영어만 가능합니다'
+                    : ''
                 }
               />
               <Button
@@ -289,10 +291,11 @@ function SignupPage() {
                 {/* 닉네임 입력 */}
                 <InputField
                   label="나이"
-                  placeholder="숫자만 입력가능합니다"
+                  placeholder="숫자만 1 ~ 100까지  입력가능합니다"
                   type="age"
                   value={age}
                   onChange={setAge}
+                  errorMessage="나이는 최대 100까지 입력가능합니다"
                 />
 
                 {/* 성별 선택 */}
