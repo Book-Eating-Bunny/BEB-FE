@@ -71,4 +71,11 @@
     border-radius: 10px;
     font-weight: 400;
   }
+
+  &.check {
+    background-color: #fbd1c8;
+    height: 40px;
+    width: 100px;
+    position: relative;
+  }
 }
