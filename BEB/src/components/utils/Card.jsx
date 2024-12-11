@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useAtomValue} from 'jotai';
 import {reviewsAtom} from '../../state/reviewState';
 import {readBooksAtom} from '../../state/readBooksState';
@@ -8,6 +8,7 @@ import Book from './Book';
 import BookInfo from './BookInfo';
 import Button from '../utils/Button';
 import '../../styles/utils/ReviewCard.scss';
+import Modal from './Modal';
 
 const Card = ({
   reviewId,
@@ -21,6 +22,15 @@ const Card = ({
   const reviews = useAtomValue(reviewsAtom); // 리뷰 데이터
   const readBooks = useAtomValue(readBooksAtom); // 읽은 책 데이터
   const wishList = useAtomValue(wishListAtom); // 찜한 책 데이터
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // 모달 닫기
+  };
 
   // 데이터 선택 우선순위: reviewId > readBookId > wishlistBookId
   const review = reviewId
@@ -46,7 +56,7 @@ const Card = ({
 
   return (
     <div className="review-card">
-      <div className="book-box">
+      <div className="book-box" onClick={handleOpenModal}>
         <Book
           coverImage={coverImg || coverImageUrl} // 둘 중 하나 사용
           title={title}
@@ -59,6 +69,39 @@ const Card = ({
           rating={reviewId ? rating : null} // 리뷰인 경우 평점 표시
         />
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <div className="review-modal-header">
+            <img
+              className="modal-avatar"
+              src="/path-to-avatar.png"
+              alt="Avatar"
+            />
+            <h2>리뷰 상세 정보</h2>
+          </div>
+          <div className="review-modal-body">
+            <p className="modal-review">제목: {title}</p>
+            <p className="modal-review">저자: {author}</p>
+            <p className="modal-date">
+              작성일: {new Date(createdAt).toLocaleDateString()}
+            </p>
+            {reviewId && (
+              <p className="modal-rating">
+                평점:{' '}
+                {Array.from({length: rating}).map((_, index) => (
+                  <span key={index}>⭐</span>
+                ))}
+              </p>
+            )}
+          </div>
+          <div className="review-modal-actions">
+            <button className="modal-action-btn">리뷰 수정하기</button>
+            <button className="modal-action-btn danger">리뷰 삭제하기</button>
+          </div>
+        </Modal>
+      )}
 
       {reviewId && (
         <div className="review-card-review">

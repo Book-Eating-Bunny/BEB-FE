@@ -10,7 +10,7 @@ export const fetchReviews = async () => {
         },
         rating: 4.0,
         contentSnippet:
-          'This book is amazing and...This book is amazing and...This book is amazing and...This book is amazing and...This book is amazing and...',
+          'This book is amazing and...This book is amazing and...This book is amazing and...This book is amazing and...This book is amazing and...dddddddddddddddddddddd',
         createdAt: '2023-12-01T10:30:00Z'
       },
       {
