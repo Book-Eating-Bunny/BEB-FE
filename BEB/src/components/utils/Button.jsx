@@ -21,7 +21,8 @@ Button.propTypes = {
     'delete',
     'read',
     'wishlist',
-    'submit'
+    'submit',
+    'check'
   ]), // 추가된 variant
   onClick: PropTypes.func // onClick은 함수
 };

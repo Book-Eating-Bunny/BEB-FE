@@ -1,3 +1,4 @@
+@import '../../styles.scss';
 .side {
   height: 100%;
   display: flex;
@@ -32,27 +33,21 @@
     margin: 20px 0;
 
     .speech-bubble {
-      background-color: #fde4d0;
-      color: #555;
+      display: flex;
+      background-image: url('/cloud.png'); /* 구름 이미지 경로 */
+      background-size: 90%;
+      height: 100px;
+      background-repeat: no-repeat;
+      background-position: center;
       font-size: 14px;
+      color: $black;
       padding: 15px 20px;
-      border-radius: 25px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      align-items: center;
       text-align: center;
-      max-width: 200px;
       margin-bottom: 20px;
       p {
         letter-spacing: var(--main-letter-spacing);
       }
-    }
-    &:after {
-      border-top: 10px solid #fde4d0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-bottom: 0px solid transparent;
-      content: '';
-      position: absolute;
-      bottom: 250px;
     }
   }
 }

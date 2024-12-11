@@ -6,7 +6,7 @@
   align-items: center;
   background: var(--review-background);
   border-radius: 20px;
-  box-shadow: var(--review-box-shadow);
+  box-shadow: var(--book-box-shadow);
   padding: 20px;
   width: calc(80% / 3 - 10px);
   height: 100%;
@@ -44,15 +44,20 @@
 }
 
 .review-card-review {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 14px;
   color: #666;
   margin: 0;
+  width: 80%;
   padding: 15px;
   border-radius: 15px;
   line-height: 1.4; /* 줄 간격 */
   box-shadow: var(--review-box-shadow);
   background-color: var(--review-background);
   letter-spacing: var(--main-letter-spacing);
+  height: calc(1.4em * 3);
   .text-box {
     @include ellipsis(3);
   }

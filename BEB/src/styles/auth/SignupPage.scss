@@ -147,3 +147,18 @@ input[type='number']::-webkit-outer-spin-button {
     background-image: url('/icons/checkboxicon.png'); /* 체크된 상태 아이콘 */
   }
 }
+
+.plus-check {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  position: relative; /* 에러 메시지를 부모 기준으로 배치하기 위해 추가 */
+}
+
+.plus-check .input-field {
+  flex-grow: 1; /* 남은 공간을 모두 차지 */
+}
+
+.plus-check button {
+  flex-shrink: 0; /* 버튼은 고정 크기 유지 */
+}
