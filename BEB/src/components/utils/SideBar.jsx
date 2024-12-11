@@ -10,7 +10,14 @@ const SideBar = () => {
       <div className="side-bar">
         <ProfileBox />
         <LogoutButton />
-        <InfoBox message="리뷰를 클릭하면 상세 페이지를 볼 수 있어요!" />
+        <InfoBox
+          message={
+            <>
+              리뷰를 클릭하면 <br />
+              상세 페이지를 볼 수 있어요!
+            </>
+          }
+        />
       </div>
     </div>
   );

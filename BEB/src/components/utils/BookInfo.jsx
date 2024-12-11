@@ -6,12 +6,16 @@ const BookInfo = ({title, author, date, rating}) => {
   return (
     <div className="book-info">
       <div className="book-info-title">{title}</div>
-      <div className="book-info-author"> {author}</div>
+      <div className="book-info-author">{author}</div>
       <div className="book-info-date">{date}</div>
       <div className="book-info-rating">
         {[...Array(5)].map((_, index) => (
-          <span key={index} className={index < rating ? 'star filled' : 'star'}>
-            ★
+          <span key={index}>
+            {index < rating ? (
+              <img src="/icons/staricon.png" className="star" />
+            ) : (
+              <img />
+            )}
           </span>
         ))}
       </div>
