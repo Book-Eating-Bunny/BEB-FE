@@ -1,14 +1,7 @@
 import '../../styles/utils/ProfileBox.scss';
 import Button from '../utils/Button';
-import {useNavigate} from 'react-router-dom';
 
-const ProfileBox = () => {
-  const navigate = useNavigate(); // useNavigate 훅 사용
-
-  const moveProfile = () => {
-    navigate('/signup');
-  };
-
+const ReviewWrite = () => {
   return (
     <div className="profilebox">
       <img src="/logo/angel.png" alt="User Profile" className="user-profile" />
@@ -18,4 +11,4 @@ const ProfileBox = () => {
   );
 };
 
-export default ProfileBox;
+export default ReviewWrite;

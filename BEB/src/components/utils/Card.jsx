@@ -9,6 +9,8 @@ import BookInfo from './BookInfo';
 import Button from '../utils/Button';
 import '../../styles/utils/ReviewCard.scss';
 import Modal from './Modal';
+import {useAtom} from 'jotai';
+import {viewStateAtom} from '../../state/viewState';
 
 const Card = ({
   reviewId,
@@ -23,9 +25,15 @@ const Card = ({
   const readBooks = useAtomValue(readBooksAtom); // 읽은 책 데이터
   const wishList = useAtomValue(wishListAtom); // 찜한 책 데이터
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [viewState, setViewState] = useAtom(viewStateAtom);
 
   const handleOpenModal = () => {
     setIsModalOpen(true); // 모달 열기
+  };
+
+  const handelWriteReview = () => {
+    setViewState('write-review');
+    console.log(viewState);
   };
 
   const handleCloseModal = () => {
@@ -72,35 +80,14 @@ const Card = ({
 
       {/* Modal */}
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <div className="review-modal-header">
-            <img
-              className="modal-avatar"
-              src="/path-to-avatar.png"
-              alt="Avatar"
-            />
-            <h2>리뷰 상세 정보</h2>
-          </div>
-          <div className="review-modal-body">
-            <p className="modal-review">제목: {title}</p>
-            <p className="modal-review">저자: {author}</p>
-            <p className="modal-date">
-              작성일: {new Date(createdAt).toLocaleDateString()}
-            </p>
-            {reviewId && (
-              <p className="modal-rating">
-                평점:{' '}
-                {Array.from({length: rating}).map((_, index) => (
-                  <span key={index}>⭐</span>
-                ))}
-              </p>
-            )}
-          </div>
-          <div className="review-modal-actions">
-            <button className="modal-action-btn">리뷰 수정하기</button>
-            <button className="modal-action-btn danger">리뷰 삭제하기</button>
-          </div>
-        </Modal>
+        <Modal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          date={new Date(createdAt).toLocaleDateString()}
+          rating={rating}
+          content={contentSnippet}
+          type="review"
+        />
       )}
 
       {reviewId && (
@@ -113,7 +100,7 @@ const Card = ({
           <Button
             label="리뷰 작성하기"
             variant="review-create"
-            onClick={() => alert('리뷰 작성')}
+            onClick={handelWriteReview}
           />
           <Button
             label="삭제하기"
