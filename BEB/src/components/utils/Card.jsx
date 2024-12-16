@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useAtomValue} from 'jotai';
 import {reviewsAtom} from '../../state/reviewState';
 import {readBooksAtom} from '../../state/readBooksState';
@@ -8,6 +8,9 @@ import Book from './Book';
 import BookInfo from './BookInfo';
 import Button from '../utils/Button';
 import '../../styles/utils/ReviewCard.scss';
+import Modal from './Modal';
+import {useAtom} from 'jotai';
+import {viewStateAtom} from '../../state/viewState';
 
 const Card = ({
   reviewId,
@@ -21,6 +24,21 @@ const Card = ({
   const reviews = useAtomValue(reviewsAtom); // 리뷰 데이터
   const readBooks = useAtomValue(readBooksAtom); // 읽은 책 데이터
   const wishList = useAtomValue(wishListAtom); // 찜한 책 데이터
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [viewState, setViewState] = useAtom(viewStateAtom);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  const handelWriteReview = () => {
+    setViewState('write-review');
+    console.log(viewState);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // 모달 닫기
+  };
 
   // 데이터 선택 우선순위: reviewId > readBookId > wishlistBookId
   const review = reviewId
@@ -46,7 +64,7 @@ const Card = ({
 
   return (
     <div className="review-card">
-      <div className="book-box">
+      <div className="book-box" onClick={handleOpenModal}>
         <Book
           coverImage={coverImg || coverImageUrl} // 둘 중 하나 사용
           title={title}
@@ -60,6 +78,18 @@ const Card = ({
         />
       </div>
 
+      {/* Modal */}
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          date={new Date(createdAt).toLocaleDateString()}
+          rating={rating}
+          content={contentSnippet}
+          type="review"
+        />
+      )}
+
       {reviewId && (
         <div className="review-card-review">
           <div className="text-box">{contentSnippet}</div>
@@ -70,7 +100,7 @@ const Card = ({
           <Button
             label="리뷰 작성하기"
             variant="review-create"
-            onClick={() => alert('리뷰 작성')}
+            onClick={handelWriteReview}
           />
           <Button
             label="삭제하기"
