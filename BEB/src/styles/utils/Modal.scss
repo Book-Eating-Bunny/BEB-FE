@@ -1,0 +1,55 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  :hover {
+    transform: none;
+  }
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  position: relative; /* 컨텐츠는 오버레이 내부에서 배치 */
+  background: #eccac5;
+  padding: 20px;
+  padding-top: 60px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 90%; /* 반응형 크기 */
+  max-width: 500px; /* 최대 가로 크기 제한 */
+
+  img {
+    position: absolute;
+    width: 20px;
+    top: 20px;
+    background-color: transparent;
+    right: 20px;
+  }
+  .review-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    align-items: center;
+    .date-box {
+      display: flex;
+      flex-direction: column;
+      margin-left: auto;
+    }
+    .button-box {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}
