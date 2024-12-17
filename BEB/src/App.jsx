@@ -10,43 +10,42 @@ import {isLoggedInAtom} from './state/authState';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import SignupPage from './pages/SignupPage';
+import axiosInstance from './api/axiosInstance'; // Axios 인터셉터 설정된 인스턴스 가져오기
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom); // Jotai 상태 가져오기
-  const [loading, setLoading] = useState(true); // 초기화 완료 여부
+  const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 토큰 확인 후 로그인 상태 설정
     const token = localStorage.getItem('authToken');
+    console.log('Token from localStorage:', token);
+
     if (token) {
-      setIsLoggedIn(true); // 토큰이 있으면 로그인 상태로 설정
+      setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(false); // 토큰이 없으면 로그아웃 상태
+      setIsLoggedIn(false);
     }
-    setLoading(false); // 초기화 완료
+
+    setLoading(false);
   }, [setIsLoggedIn]);
 
-  if (loading) {
-    // 로딩 중에는 빈 화면 또는 스피너를 표시
-    return <div>Loading...</div>;
-  }
-
   return (
-    <Router>
-      <Routes>
-        {/* 로그인 상태에 따라 메인 페이지 또는 로그인 페이지로 이동 */}
-        <Route
-          path="/"
-          element={isLoggedIn ? <MainPage /> : <Navigate to="/login" />}
-        />
-
-        {/* 로그인 페이지 */}
-        <Route path="/login" element={<LoginPage />} />
-
-        {/* 회원가입 페이지 */}
-        <Route path="/signup" element={<SignupPage />} />
-      </Routes>
-    </Router>
+    <>
+      {loading ? (
+        <div>Loading...</div> // 로딩 상태일 때 화면 표시
+      ) : (
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={isLoggedIn ? <MainPage /> : <Navigate to="/login" />}
+            />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+          </Routes>
+        </Router>
+      )}
+    </>
   );
 }
 

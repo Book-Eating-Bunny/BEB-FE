@@ -24,6 +24,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "require-jsdoc": "off",
+    "no-unused-vars": "off",
     "linebreak-style": ["error", "windows"] // CRLF 스타일 강제
   },
   "settings": {
