@@ -18,7 +18,6 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    console.log('Token from localStorage:', token);
 
     if (token) {
       setIsLoggedIn(true);

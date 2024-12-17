@@ -9,35 +9,52 @@ import BookInfo from './BookInfo';
 import Button from '../utils/Button';
 import '../../styles/utils/ReviewCard.scss';
 import Modal from './Modal';
-import {useAtom} from 'jotai';
+import {useAtom, useSetAtom} from 'jotai';
 import {viewStateAtom} from '../../state/viewState';
+import {deleteReadBook} from '../../api/fetchReadBooks'; // 삭제 함수 가져오기
 
 const Card = ({
   reviewId,
   readBookId,
   wishlistBookId,
   readBookTab = false,
-  wishListTab = false,
-  onEdit,
-  onDelete
+  wishListTab = false
 }) => {
-  const reviews = useAtomValue(reviewsAtom); // 리뷰 데이터
-  const readBooks = useAtomValue(readBooksAtom); // 읽은 책 데이터
-  const wishList = useAtomValue(wishListAtom); // 찜한 책 데이터
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const reviews = useAtomValue(reviewsAtom);
+  const readBooks = useAtomValue(readBooksAtom);
+  const setReadBooks = useSetAtom(readBooksAtom); // 읽은 책 상태 업데이트 함수
+  const wishList = useAtomValue(wishListAtom);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewState, setViewState] = useAtom(viewStateAtom);
 
   const handleOpenModal = () => {
-    setIsModalOpen(true); // 모달 열기
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const handelWriteReview = () => {
     setViewState('write-review');
-    console.log(viewState);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false); // 모달 닫기
+  const handleDeleteBook = async (readBookId) => {
+    // 확인창 추가
+    const isConfirmed = window.confirm('읽은 책에서 삭제하시겠습니까?');
+    if (!isConfirmed) return; // 사용자가 취소하면 함수 종료
+
+    const success = await deleteReadBook(readBookId);
+    if (success) {
+      alert('삭제되었습니다.');
+      // 상태에서 삭제된 책 제거
+      setReadBooks((prevBooks) =>
+        prevBooks.filter((book) => book.readBookId !== readBookId)
+      );
+    } else {
+      alert('삭제 실패: 오류가 발생했습니다.');
+    }
   };
 
   // 데이터 선택 우선순위: reviewId > readBookId > wishlistBookId
@@ -48,33 +65,27 @@ const Card = ({
       : wishList.find((w) => w.wishlistBookId === wishlistBookId);
 
   if (!review) return null; // 데이터가 없으면 렌더링하지 않음
-
-  // 기본값 설정
   const {
     book: {
-      coverImg = '/default-cover.jpg', // 기본 이미지
-      coverImageUrl = '/default-cover.jpg',
-      title = '제목 없음', // 기본 제목
-      author = '저자 미상' // 기본 저자
+      title = '제목 없음',
+      author = '저자 미상',
+      coverImgUrl = 'null'
     } = {},
-    contentSnippet = '리뷰 내용 없음', // 리뷰 내용 (리뷰인 경우)
-    createdAt = new Date().toISOString(), // 기본 날짜
-    rating = 0 // 평점 (리뷰인 경우)
+    contentSnippet = '리뷰 내용 없음',
+    createdAt = new Date().toISOString(),
+    rating = 0
   } = review;
 
   return (
     <div className="review-card">
       <div className="book-box" onClick={handleOpenModal}>
-        <Book
-          coverImage={coverImg || coverImageUrl} // 둘 중 하나 사용
-          title={title}
-          author={author}
-        />
+        <Book coverImage={coverImgUrl} />
+
         <BookInfo
-          title={title}
-          author={author}
-          date={new Date(createdAt).toLocaleDateString()} // 날짜 포맷팅
-          rating={reviewId ? rating : null} // 리뷰인 경우 평점 표시
+          title={title.split('-')[0].trim()}
+          author={author.split('(지은이)')[0].trim()}
+          date={new Date(createdAt).toLocaleDateString()}
+          rating={reviewId ? rating : null}
         />
       </div>
 
@@ -105,7 +116,7 @@ const Card = ({
           <Button
             label="삭제하기"
             variant="delete"
-            onClick={() => alert('삭제')}
+            onClick={() => handleDeleteBook(readBookId)}
           />
         </div>
       )}
