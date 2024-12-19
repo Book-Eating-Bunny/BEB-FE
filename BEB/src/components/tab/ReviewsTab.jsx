@@ -1,27 +1,31 @@
 import React, {useEffect} from 'react';
 import {useAtom} from 'jotai';
-import {fetchReviews} from '../../api/fetchReviews';
-import {reviewsAtom} from '../../state/reviewState';
+import {reviewsAtom, fetchReviewsAtom} from '../../state/reviewState';
 import Card from '../utils/Card';
 import '../../styles/main/ReviewsTab.scss';
 
 const ReviewsTab = () => {
   const [reviews, setReviews] = useAtom(reviewsAtom);
+  const [, fetchReviews] = useAtom(fetchReviewsAtom);
 
   useEffect(() => {
-    const loadReviews = async () => {
-      const data = await fetchReviews();
-      setReviews(data.data); // 리뷰 데이터 상태 업데이트
-    };
-
-    loadReviews();
-  }, [setReviews]);
+    fetchReviews(); // fetchReadBooksAtom 실행
+  }, [fetchReviews]);
 
   return (
     <div className="review-list">
-      {reviews.map((review) => (
-        <Card key={review.reviewId} reviewId={review.reviewId} />
-      ))}
+      {reviews.length > 0 ? (
+        reviews.map((review) => (
+          <Card
+            key={review.reviewId}
+            reviewId={review.reviewId}
+            reviewTab={true}
+            content={review.content}
+          />
+        ))
+      ) : (
+        <div className="no-data">읽은 책이 없습니다.</div>
+      )}
     </div>
   );
 };

@@ -19,9 +19,11 @@ const Card = ({
   readBookId,
   wishlistBookId,
   readBookTab = false,
-  wishListTab = false
+  wishListTab = false,
+  content
 }) => {
   const reviews = useAtomValue(reviewsAtom);
+  const setReviews = useSetAtom(reviewsAtom);
   const readBooks = useAtomValue(readBooksAtom);
   const setReadBooks = useSetAtom(readBooksAtom); // 읽은 책 상태 업데이트 함수
   const wishList = useAtomValue(wishListAtom);
@@ -154,14 +156,14 @@ const Card = ({
           onClose={handleCloseModal}
           date={new Date(createdAt).toLocaleDateString()}
           rating={rating}
-          content={contentSnippet}
+          content={content}
           type="review"
         />
       )}
 
       {reviewId && (
         <div className="review-card-review">
-          <div className="text-box">{contentSnippet}</div>
+          <div className="text-box">{content}</div>
         </div>
       )}
       {readBookTab && (
@@ -206,7 +208,8 @@ Card.propTypes = {
   wishListTab: PropTypes.bool,
   readBookTab: PropTypes.bool,
   onEdit: PropTypes.func, // 수정 버튼 클릭 핸들러
-  onDelete: PropTypes.func // 삭제 버튼 클릭 핸들러
+  onDelete: PropTypes.func, // 삭제 버튼 클릭 핸들러
+  content: PropTypes.string
 };
 
 Card.defaultProps = {
