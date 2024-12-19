@@ -13,6 +13,7 @@ import {useAtom, useSetAtom} from 'jotai';
 import {viewStateAtom} from '../../state/viewState';
 import {deleteReadBook} from '../../api/fetchReadBooks'; // 삭제 함수 가져오기
 import {addReadBook, deleteWishList} from '../../api/fetchWishlist';
+import {selectedBookAtom} from '../../state/selectState';
 
 const Card = ({
   reviewId,
@@ -32,6 +33,8 @@ const Card = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewState, setViewState] = useAtom(viewStateAtom);
 
+  const setSelectedBook = useSetAtom(selectedBookAtom); // 선택한 책
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -41,6 +44,9 @@ const Card = ({
   };
 
   const handelWriteReview = () => {
+    setSelectedBook(bookData);
+    console.log('bb', bookData);
+
     setViewState('write-review');
   };
 
