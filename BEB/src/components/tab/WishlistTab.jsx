@@ -1,31 +1,42 @@
 import React, {useEffect} from 'react';
 import {useAtom} from 'jotai';
-import {fetchWishlist} from '../../api/fetchWishlist';
-import {wishListAtom} from '../../state/wishListState';
+import {
+  wishListAtom,
+  fetchwishlistAtom,
+  wishlistPaginationAtom
+} from '../../state/wishListState';
 import Card from '../utils/Card';
 import '../../styles/main/ReviewsTab.scss';
 
 const WishlistTab = () => {
-  const [wishList, setWishList] = useAtom(wishListAtom);
+  const [wishList] = useAtom(wishListAtom);
+  const [pagination] = useAtom(wishlistPaginationAtom); // 페이지네이션 상태
+  const [, fetchWishlist] = useAtom(fetchwishlistAtom);
 
   useEffect(() => {
-    const loadWishList = async () => {
-      const data = await fetchWishlist();
-      setWishList(data.data); // 리뷰 데이터 상태 업데이트
-    };
-
-    loadWishList();
-  }, [setWishList]);
+    fetchWishlist();
+  }, [fetchWishlist]);
 
   return (
     <div className="review-list">
-      {wishList.map((wishList) => (
-        <Card
-          key={wishList.wishlistBookId}
-          wishlistBookId={wishList.wishlistBookId}
-          wishListTab={true}
-        />
-      ))}
+      {wishList.length > 0 ? (
+        wishList.map((wish) => {
+          return (
+            <Card
+              key={wish.readBookId}
+              wishlistBookId={wish.wishlistBookId}
+              wishListTab={true}
+            />
+          );
+        })
+      ) : (
+        <div className="no-data">찜한 책이 없습니다.</div>
+      )}
+
+      {/* 페이지네이션 정보 */}
+      <div className="pagination-info">
+        페이지 {pagination.currentPage} / {pagination.totalPages}
+      </div>
     </div>
   );
 };
