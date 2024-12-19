@@ -12,6 +12,7 @@ import Modal from './Modal';
 import {useAtom, useSetAtom} from 'jotai';
 import {viewStateAtom} from '../../state/viewState';
 import {deleteReadBook} from '../../api/fetchReadBooks'; // 삭제 함수 가져오기
+import {addReadBook, deleteWishList} from '../../api/fetchWishlist';
 
 const Card = ({
   reviewId,
@@ -24,6 +25,7 @@ const Card = ({
   const readBooks = useAtomValue(readBooksAtom);
   const setReadBooks = useSetAtom(readBooksAtom); // 읽은 책 상태 업데이트 함수
   const wishList = useAtomValue(wishListAtom);
+  const setWishList = useSetAtom(wishListAtom);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewState, setViewState] = useAtom(viewStateAtom);
@@ -57,14 +59,70 @@ const Card = ({
     }
   };
 
-  // 데이터 선택 우선순위: reviewId > readBookId > wishlistBookId
-  const review = reviewId
-    ? reviews.find((r) => r.reviewId === reviewId)
-    : readBookId
-      ? readBooks.find((b) => b.readBookId === readBookId)
-      : wishList.find((w) => w.wishlistBookId === wishlistBookId);
+  const handleDeleteWish = async (wishlistBookId) => {
+    // 확인창 추가
+    const isConfirmed = window.confirm('찜한 책에서 삭제하시겠습니까?');
+    if (!isConfirmed) return; // 사용자가 취소하면 함수 종료
 
-  if (!review) return null; // 데이터가 없으면 렌더링하지 않음
+    const responseData = await deleteWishList(wishlistBookId);
+    if (responseData.result === 1) {
+      alert('삭제되었습니다.');
+      // 상태에서 삭제된 책 제거
+      setWishList((prevBooks) =>
+        prevBooks.filter((book) => book.wishlistBookId !== wishlistBookId)
+      );
+    } else {
+      alert('삭제 실패: 오류가 발생했습니다.');
+    }
+  };
+  const handleAddReadBook = async (wishlistBookId) => {
+    // Find the book in the wishList using wishlistBookId
+    const wishListItem = wishList.find(
+      (item) => item.wishlistBookId === wishlistBookId
+    );
+
+    if (!wishListItem || !wishListItem.book?.bookId) {
+      alert('추가 실패: 찜한 책의 BookId를 찾을 수 없습니다.');
+      return;
+    }
+
+    const {bookId} = wishListItem.book;
+
+    const isAlreadyRead = readBooks.some(
+      (book) => book.book?.bookId === bookId
+    );
+    if (isAlreadyRead) {
+      alert('이미 읽은 책에 저장된 책입니다.');
+      return;
+    }
+
+    const responseData = await addReadBook(bookId);
+
+    if (responseData.result === 1) {
+      alert('책이 읽은 목록에 추가되었습니다.');
+    } else {
+      alert('읽은 책 목록에 추가하는 데 실패했습니다.');
+    }
+  };
+
+  const reviewData = reviewId
+    ? reviews.find((r) => r.reviewId === reviewId)
+    : null;
+
+  const readBookData = readBookId
+    ? readBooks.find((b) => b.readBookId === readBookId)
+    : null;
+
+  const wishListData = wishlistBookId
+    ? wishList.find((w) => w.wishlistBookId === wishlistBookId)
+    : null;
+
+  // bookData 처리: book 객체를 포함시키기
+  const bookData = wishListData
+    ? {...wishListData, ...wishListData.book}
+    : reviewData || readBookData;
+
+  if (!bookData) return null; // 데이터가 없으면 렌더링하지 않음
   const {
     book: {
       title = '제목 없음',
@@ -74,7 +132,7 @@ const Card = ({
     contentSnippet = '리뷰 내용 없음',
     createdAt = new Date().toISOString(),
     rating = 0
-  } = review;
+  } = bookData;
 
   return (
     <div className="review-card">
@@ -126,12 +184,12 @@ const Card = ({
           <Button
             label="읽었어요"
             variant="read"
-            onClick={() => alert('읽었어요')}
+            onClick={() => handleAddReadBook(wishlistBookId)}
           />
           <Button
             label="삭제하기"
             variant="delete"
-            onClick={() => alert('삭제')}
+            onClick={() => handleDeleteWish(wishlistBookId)}
           />
         </div>
       )}
