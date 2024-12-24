@@ -73,7 +73,6 @@ function LoginPage() {
       />
       <Button label="SIGN IN" variant="default" onClick={handleSignup} />
       <Button label="LOGIN" variant="primary" onClick={handleLogin} />
-      <p>자동배포테스트</p>
     </div>
   );
 }
