@@ -1,4 +1,4 @@
 tar -xvf dist.tar
 rm -rf dist.tar
 
-sudo systemctl restart nginx
+sudo systemctl restart nginx 
