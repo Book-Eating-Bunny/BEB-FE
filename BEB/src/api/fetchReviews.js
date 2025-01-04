@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export const fetchReviews = async (page = 1) => {
   try {
-    // 로컬스토리지에서 토큰 데이터를 가져옵니다.
     const tokenData = JSON.parse(localStorage.getItem('authToken')); // 로컬스토리지에서 'token' 키를 가져옴
 
     const accessToken = tokenData?.token.accessToken; // accessToken 추출

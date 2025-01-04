@@ -3,6 +3,7 @@ import {useAtom} from 'jotai';
 import {viewStateAtom} from '../../state/viewState';
 import Button from '../utils/Button';
 import '../../styles/contents/WriteReview.scss';
+import {selectedBookAtom} from '../../state/selectState';
 
 const WriteReview = () => {
   const [review, setReview] = useState('');
@@ -13,6 +14,9 @@ const WriteReview = () => {
   const [, setViewState] = useAtom(viewStateAtom);
   const dropdownRef = useRef();
   const storedToken = localStorage.getItem('authToken');
+  const seletBookData = useAtom(selectedBookAtom);
+  console.log(seletBookData[0].book.title);
+  const bookTitle = seletBookData[0].book.title;
 
   if (storedToken) {
     try {
@@ -36,7 +40,7 @@ const WriteReview = () => {
     }
 
     const reviewData = {
-      bookId: 1, // 책 ID
+      bookId: seletBookData[0].book.bookId, // 책 ID
       rating: selectedStar, // 별점
       content: review, // 리뷰 내용
       isSpoiler: isSpoiler, // 스포일러 여부
@@ -90,7 +94,7 @@ const WriteReview = () => {
 
   return (
     <div className="write-review-form">
-      <div className="book-name">책제목</div>
+      <div className="book-name">{bookTitle}</div>
       <form onSubmit={handleSubmit}>
         <textarea
           className="text-area"

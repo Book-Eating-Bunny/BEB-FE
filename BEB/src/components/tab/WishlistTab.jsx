@@ -19,7 +19,7 @@ const WishlistTab = () => {
 
   return (
     <div className="review-list">
-      {wishList.length > 0 ? (
+      {Array.isArray(wishList) && wishList.length > 0 ? (
         wishList.map((wish) => {
           return (
             <Card
