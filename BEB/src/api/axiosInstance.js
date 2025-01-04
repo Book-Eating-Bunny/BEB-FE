@@ -3,7 +3,7 @@ import {isLoggedInAtom} from '../state/authState';
 import {getDefaultStore} from 'jotai';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://34.134.220.88/api',
+  baseURL: 'http://223.130.134.62',
   headers: {
     'Content-Type': 'application/json'
   },

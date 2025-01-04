@@ -20,7 +20,7 @@ const ReadBooksTab = () => {
 
   return (
     <div className="review-list">
-      {reads.length > 0 ? (
+      {Array.isArray(reads) && reads.length > 0 ? (
         reads.map((read) => (
           <Card
             key={read.readBookId}

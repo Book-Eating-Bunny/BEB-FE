@@ -14,7 +14,7 @@ const ReviewsTab = () => {
 
   return (
     <div className="review-list">
-      {reviews.length > 0 ? (
+      {Array.isArray(reviews) && reviews.length > 0 ? (
         reviews.map((review) => (
           <Card
             key={review.reviewId}
