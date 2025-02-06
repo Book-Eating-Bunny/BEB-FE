@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useAtom} from 'jotai';
 import {viewStateAtom} from '../../state/viewState';
+import {searchResultsAtom} from '../../state/searchResults';
 import SearchBar from '../utils/SearchBar';
 import MainTab from '../contents/MainTab';
 import SearchBookInfo from '../contents/SearchBookInfo';
 import SearchResults from '../contents/SearchResults';
 import WriteReview from '../contents/WriteReview';
+import BookDetail from '../contents/BookDetail';
 
 import '../../styles/main/ContentsBox.scss';
 
 const ContentsBox = () => {
   const [viewState, setViewState] = useAtom(viewStateAtom);
+  const [searchResults, setSearchResults] = useAtom(searchResultsAtom);
+
   // 상태에 따른 콘텐츠 렌더링
   const renderContent = () => {
     switch (viewState) {
@@ -20,6 +24,8 @@ const ContentsBox = () => {
         return <SearchBookInfo />;
       case 'search-results':
         return <SearchResults />;
+      case 'book-detail':
+        return <BookDetail />;
       case 'main-tab':
       default:
         return <MainTab />;
@@ -27,8 +33,7 @@ const ContentsBox = () => {
   };
 
   const handleSearch = (query) => {
-    console.log('검색된 내용:', query);
-    console.log(viewStateAtom);
+    setSearchResults(query);
     setViewState('search-results');
   };
 

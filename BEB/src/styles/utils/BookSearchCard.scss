@@ -1,0 +1,22 @@
+.book-card {
+  display: flex;
+  .book-cover {
+    width: 100px;
+    height: 100%;
+  }
+
+  * {
+    color: black;
+    text-align: left;
+    width: 100%;
+    .book-title {
+      width: 100%;
+      text-align: left;
+    }
+    .book-author,
+    .book-rating,
+    .book-review {
+      font-size: 12px;
+    }
+  }
+}

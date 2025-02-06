@@ -12,15 +12,22 @@ import Modal from './Modal';
 import {useAtom, useSetAtom} from 'jotai';
 import {viewStateAtom} from '../../state/viewState';
 import {deleteReadBook} from '../../api/fetchReadBooks'; // 삭제 함수 가져오기
-import {addReadBook, deleteWishList} from '../../api/fetchWishlist';
+import {
+  addReadBook,
+  deleteWishList,
+  addWishList
+} from '../../api/fetchWishlist';
 import {selectedBookAtom} from '../../state/selectState';
+import {searchResultsAtom} from '../../state/searchResults';
 
 const Card = ({
   reviewId,
   readBookId,
   wishlistBookId,
+  searchBookId,
   readBookTab = false,
   wishListTab = false,
+  searchReasults = false,
   content
 }) => {
   const reviews = useAtomValue(reviewsAtom);
@@ -29,7 +36,7 @@ const Card = ({
   const setReadBooks = useSetAtom(readBooksAtom); // 읽은 책 상태 업데이트 함수
   const wishList = useAtomValue(wishListAtom);
   const setWishList = useSetAtom(wishListAtom);
-
+  const searchResults = useAtomValue(searchResultsAtom);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewState, setViewState] = useAtom(viewStateAtom);
 
@@ -45,8 +52,6 @@ const Card = ({
 
   const handelWriteReview = () => {
     setSelectedBook(bookData);
-    console.log('bb', bookData);
-
     setViewState('write-review');
   };
 
@@ -83,33 +88,72 @@ const Card = ({
       alert('삭제 실패: 오류가 발생했습니다.');
     }
   };
-  const handleAddReadBook = async (wishlistBookId) => {
-    // Find the book in the wishList using wishlistBookId
-    const wishListItem = wishList.find(
-      (item) => item.wishlistBookId === wishlistBookId
-    );
 
-    if (!wishListItem || !wishListItem.book?.bookId) {
-      alert('추가 실패: 찜한 책의 BookId를 찾을 수 없습니다.');
-      return;
-    }
+  const handleAddReadBook = async (bookId, fromWishlist = false) => {
+    let bookToAdd;
 
-    const {bookId} = wishListItem.book;
-
-    const isAlreadyRead = readBooks.some(
-      (book) => book.book?.bookId === bookId
-    );
-    if (isAlreadyRead) {
-      alert('이미 읽은 책에 저장된 책입니다.');
-      return;
-    }
-
-    const responseData = await addReadBook(bookId);
-
-    if (responseData.result === 1) {
-      alert('책이 읽은 목록에 추가되었습니다.');
+    if (fromWishlist) {
+      // 위시리스트에서 책 찾기
+      const wishListItem = wishList.find(
+        (item) => item.wishlistBookId === bookId
+      );
+      if (!wishListItem || !wishListItem.book?.bookId) {
+        alert('추가 실패: 찜한 책의 BookId를 찾을 수 없습니다.');
+        return;
+      }
+      bookToAdd = wishListItem.book;
     } else {
-      alert('읽은 책 목록에 추가하는 데 실패했습니다.');
+      // 검색 결과에서 책 찾기
+      const searchBookItem = searchResults.find((item) => item.isbn === bookId);
+      if (!searchBookItem) {
+        alert('추가 실패: 검색 결과에서 해당 책을 찾을 수 없습니다.');
+        return;
+      }
+      bookToAdd = searchBookItem;
+    }
+
+    // API 호출
+    const response = await addReadBook(bookToAdd.bookId);
+
+    // 응답 처리
+    if (response.success) {
+      alert(response.message); // 성공 메시지
+    } else if (response.reason === 'already_exists') {
+      alert('이미 읽은 책으로 저장된 책입니다.');
+    } else {
+      alert(response.message || '읽은 책 목록에 추가하는 데 실패했습니다.');
+    }
+  };
+
+  const handleAddWishList = async (bookId) => {
+    // 검색 결과에서 책 찾기
+    const searchBookItem = searchResults.find((item) => item.isbn === bookId);
+    if (!searchBookItem) {
+      alert('추가 실패: 검색 결과에서 해당 책을 찾을 수 없습니다.');
+      return;
+    }
+
+    const bookToAdd = searchBookItem.bookId;
+
+    // API 호출
+    const response = await addWishList(bookToAdd);
+    console.log('response', response);
+
+    // 응답 처리
+    if (response.success) {
+      alert(response.message); // 성공 메시지
+      // 상태 업데이트
+      setWishList((prevWishList) => [
+        ...prevWishList,
+        {
+          wishlistBookId: response.wishlistBookId,
+          book: bookToAdd
+        }
+      ]);
+    } else if (response.reason === 'already_exists') {
+      alert('이미 찜한 책 목록에 추가된 책입니다.');
+    } else {
+      alert(response.message || '찜한 책 목록에 추가하는 데 실패했습니다.');
     }
   };
 
@@ -125,22 +169,30 @@ const Card = ({
     ? wishList.find((w) => w.wishlistBookId === wishlistBookId)
     : null;
 
-  // bookData 처리: book 객체를 포함시키기
+  const searchBookData = searchResults.find(
+    (book) => book.isbn === searchBookId
+  );
+
   const bookData = wishListData
     ? {...wishListData, ...wishListData.book}
-    : reviewData || readBookData;
+    : reviewData || readBookData || searchBookData;
 
-  if (!bookData) return null; // 데이터가 없으면 렌더링하지 않음
-  const {
-    book: {
-      title = '제목 없음',
-      author = '저자 미상',
-      coverImgUrl = 'null'
-    } = {},
-    contentSnippet = '리뷰 내용 없음',
-    createdAt = new Date().toISOString(),
-    rating = 0
-  } = bookData;
+  // const removeParentheses = (title) => {
+  //   return title.replace(/\s*\([^)]*\)/g, '').trim();
+  // };
+
+  const title = bookData.book
+    ? bookData.book.title // 괄호 제거 함수 적용
+    : bookData.title || '제목 없음'; // 기본값에도 함수 적용
+  const author = bookData.book
+    ? bookData.book.author
+    : bookData.author || '저자 미상';
+  const coverImgUrl = bookData.book
+    ? bookData.book.coverImgUrl
+    : bookData.coverImgUrl || 'null';
+  const contentSnippet = bookData.contentSnippet || '리뷰 내용 없음';
+  const createdAt = bookData.createdAt || new Date().toISOString();
+  const rating = bookData.rating || 0;
 
   return (
     <div className="review-card">
@@ -192,12 +244,27 @@ const Card = ({
           <Button
             label="읽었어요"
             variant="read"
-            onClick={() => handleAddReadBook(wishlistBookId)}
+            onClick={() => handleAddReadBook(wishlistBookId, true)}
           />
           <Button
             label="삭제하기"
             variant="delete"
             onClick={() => handleDeleteWish(wishlistBookId)}
+          />
+        </div>
+      )}
+
+      {searchReasults && (
+        <div className="review-card-buttons">
+          <Button
+            label="읽었어요"
+            variant="read"
+            onClick={() => handleAddReadBook(searchBookId, false)}
+          />
+          <Button
+            label="찜"
+            variant="wishlist"
+            onClick={() => handleAddWishList(searchBookId)}
           />
         </div>
       )}
@@ -210,9 +277,11 @@ Card.propTypes = {
   reviewId: PropTypes.number, // 리뷰 ID
   readBookId: PropTypes.number, // 읽은 책 ID
   wishlistBookId: PropTypes.number, // 찜한 책 ID
+  searchBookId: PropTypes.number, // 검색한 책 ID
   showButtons: PropTypes.bool, // 버튼 표시 여부
   wishListTab: PropTypes.bool,
   readBookTab: PropTypes.bool,
+  searchReasults: PropTypes.bool,
   onEdit: PropTypes.func, // 수정 버튼 클릭 핸들러
   onDelete: PropTypes.func, // 삭제 버튼 클릭 핸들러
   content: PropTypes.string
